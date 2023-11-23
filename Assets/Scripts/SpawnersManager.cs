@@ -5,6 +5,8 @@ using Random = System.Random;
 
 public class SpawnersManager : MonoBehaviour
 {
+    [SerializeField] private int _spamDelay;
+
     private bool _isWork;
     private Random _random = new Random();
     private Spawner[] _spavners;
@@ -18,10 +20,12 @@ public class SpawnersManager : MonoBehaviour
 
     private IEnumerator Spam()
     {
+        var waitForDelay = new WaitForSeconds(_spamDelay);
+
         while (_isWork)
         {
             _spavners[_random.Next(_spavners.Length)].SpamEnemy();
-            yield return new WaitForSeconds(2);
+            yield return waitForDelay;
         }
     }
 }
